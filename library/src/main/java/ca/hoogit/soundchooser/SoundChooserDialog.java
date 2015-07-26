@@ -150,7 +150,7 @@ public class SoundChooserDialog extends DialogFragment implements OnSoundSelecte
     @Override
     public void onSoundSelected(int sound) {
         if (mListener != null) {
-            mListener.onSoundChosen(sound);
+            mListener.onSoundSelected(sound);
         }
 
         if (mSoundPlayer.isPlaying()) {
@@ -220,7 +220,7 @@ public class SoundChooserDialog extends DialogFragment implements OnSoundSelecte
     }
 
     public interface OnOptionChosen {
-        void onSoundChosen(int soundId);
+        void onSoundSelected(int soundId);
 
         void onPositive(DialogInterface dialog, int soundId);
 

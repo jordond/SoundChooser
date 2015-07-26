@@ -1,5 +1,8 @@
 package ca.hoogit.sample;
 
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -9,6 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.lang.reflect.Field;
+
+import ca.hoogit.soundchooser.SoundChooserDialog;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -52,7 +57,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         int[] soundFiles = getSoundsList();
 
-        
+        SoundChooserDialog dialog = SoundChooserDialog.newInstance("Choose a sound",
+                soundFiles, Color.parseColor("#2196F3"), 5, SoundChooserDialog.SIZE_SMALL);
+
+        dialog.setAudioStreamType(AudioManager.STREAM_ALARM);
+        dialog.setOnOptionChosen(new SoundChooserDialog.OnOptionChosen() {
+            @Override
+            public void onSoundSelected(int soundId) {
+
+            }
+
+            @Override
+            public void onPositive(DialogInterface dialog, int soundId) {
+                mTextView.setText("ID of chosen sound: " + soundId);
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onNegative(DialogInterface dialog) {
+                mTextView.setText("Dialog was cancelled");
+                dialog.dismiss();
+            }
+        });
+        dialog.show(getSupportFragmentManager(), "soundChooser");
     }
 
     public int[] getSoundsList() {
