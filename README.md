@@ -26,7 +26,7 @@ repositories {
   ```groovy
 dependencies {
     compile 'ca.hoogit:fabbutton:1.2.0'
-    compile 'ca.hoogit:soundchooser:1.0.+'
+    compile 'ca.hoogit:soundchooser:1.0.3'
 }
  ```
 
