@@ -34,107 +34,89 @@ dependencies {
     compile 'ca.hoogit:fabbutton:1.2.0'
 }
 
-ext {
-    bintrayRepo = 'maven'
-    bintrayName = 'soundchooser'
+def siteUrl = 'https://github.com/jordond/soundchooser'
+def gitUrl = 'https://github.com/jordond/soundchooser.git'
 
-    publishedGroupId = 'ca.hoogit.soundchooser'
-    libraryName = 'SoundChooser'
-    artifact = 'sound-chooser'
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
 
-    libraryDescription = 'A material-ish sound chooser dialog'
+bintray {
+    user = properties.getProperty("bintray.user")
+    key = properties.getProperty("bintray.apikey")
 
-    siteUrl = 'https://github.com/jordond/SoundChooser'
-    gitUrl = 'https://github.com/jordond/SoundChooser.git'
-
-    libraryVersion = version
-
-    developerId = 'jordond'
-    developerName = 'Jordon de Hoog'
-    developerEmail = 'jordondehoog@gmail.com'
-
-    licenseName = 'GNU General Public License, version 2'
-    licenseUrl = 'http://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html'
-    allLicenses = ["GPL-2.0"]
+    configurations = ['archives']
+    pkg {
+        repo = "maven"
+        name = "SoundChooser"
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["GPL-2.0"]
+        publish = true
+    }
 }
 
-apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
-apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'aar'
 
+                // Add your description here
+                name 'A Material-ish sound file chooser dialog'
+                url siteUrl
 
-//def siteUrl = 'https://github.com/jordond/soundchooser'
-//def gitUrl = 'https://github.com/jordond/soundchooser.git'
-//
-//Properties properties = new Properties()
-//properties.load(project.rootProject.file('local.properties').newDataInputStream())
-//
-//bintray {
-//    user = properties.getProperty("bintray.user")
-//    key = properties.getProperty("bintray.key")
-//
-//    configurations = ['archives']
-//    pkg {
-//        repo = "maven"
-//        name = "SoundChooser"
-//        websiteUrl = siteUrl
-//        vcsUrl = gitUrl
-//        licenses = ["GPL2"]
-//        publish = true
-//    }
-//}
-//
-//install {
-//    repositories.mavenInstaller {
-//        pom {
-//            project {
-//                packaging 'aar'
-//
-//                name 'A material-ish sound chooser dialog'
-//                url siteUrl
-//
-//                licenses {
-//                    license {
-//                        name 'GNU General Public License, version 2'
-//                        url 'http://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html'
-//                    }
-//                }
-//                developers {
-//                    developer {
-//                        id 'jordond'
-//                        name 'Jordon de Hoog'
-//                        email 'jordondehoog@gmail.com'
-//                    }
-//                }
-//                scm {
-//                    connection gitUrl
-//                    developerConnection gitUrl
-//                    url siteUrl
-//
-//                }
-//            }
-//        }
-//    }
-//}
-//
-//dependencies {
-//}
-//
-//task sourcesJar(type: Jar) {
-//    from android.sourceSets.main.java.srcDirs
-//    classifier = 'sources'
-//}
-//
-//task javadoc(type: Javadoc) {
-//    source = android.sourceSets.main.java.srcDirs
-//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-//}
-//
-//task javadocJar(type: Jar, dependsOn: javadoc) {
-//    classifier = 'javadoc'
-//    from javadoc.destinationDir
-//    options.encoding = 'UTF-8'
-//}
-//artifacts {
-//    archives javadocJar
-//    archives sourcesJar
-//}
+                // Set your license
+                licenses {
+                    license {
+                        name 'GNU General Public License, version 2'
+                        url 'http://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'jordond'
+                        name 'Jordon de Hoog'
+                        email 'jordondehoog@gmail.com'
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives javadocJar
+    archives sourcesJar
+}
+
+task findConventions << {
+    println project.getConvention()
+}
+
+task wrapper(type: Wrapper) {
+}
