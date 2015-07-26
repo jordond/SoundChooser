@@ -60,6 +60,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SoundChooserDialog dialog = SoundChooserDialog.newInstance("Choose a sound",
                 soundFiles, Color.parseColor("#2196F3"), 5, SoundChooserDialog.SIZE_SMALL);
 
+        //New feature:
+//        dialog.setTheme(R.style.DialogThemeSample);
+        //
+
         dialog.setAudioStreamType(AudioManager.STREAM_ALARM);
         dialog.setOnOptionChosen(new SoundChooserDialog.OnOptionChosen() {
             @Override

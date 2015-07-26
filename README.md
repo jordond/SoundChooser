@@ -74,6 +74,21 @@ Add a listener to the dialog
 ```java
 dialog.setOnOptionChosen(new SoundChooserDialog.OnOptionChosen() {});
 ```
+##Themes are now supported
+You can now set a custom theme style for the dialog.
+```xml
+<style name="DialogThemeSample" parent="Theme.AppCompat.Dialog.Alert">
+    <item name="android:textColor">#F00</item>
+    <item name="android:shadowColor">#000000</item>
+    <item name="android:shadowDx">2</item>
+    <item name="android:shadowDy">2</item>
+    <item name="android:shadowRadius">2</item>
+</style>
+```
+
+```java
+dialog.setTheme(R.style.DialogThemeSample);
+```
 
 ##License
 

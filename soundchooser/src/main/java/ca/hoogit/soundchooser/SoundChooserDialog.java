@@ -24,6 +24,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -56,6 +57,7 @@ public class SoundChooserDialog extends DialogFragment implements OnSoundSelecte
     protected int mColumns;
     protected int mSize;
     protected int mStreamType;
+    protected int mThemeId;
 
     protected SoundPlayer mSoundPlayer;
     protected OnOptionChosen mListener;
@@ -117,7 +119,16 @@ public class SoundChooserDialog extends DialogFragment implements OnSoundSelecte
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final Activity activity = getActivity();
 
-        View view = LayoutInflater.from(getActivity()).inflate(R.layout.sound_picker_dialog, null);
+        View view;
+        ContextThemeWrapper context;
+        if (mThemeId != 0) {
+            context = new ContextThemeWrapper(getActivity(), mThemeId);
+            view = View.inflate(context, R.layout.sound_picker_dialog, null);
+        } else {
+            context = new ContextThemeWrapper(getActivity(), R.style.AlertDialog_AppCompat_Light);
+            view = LayoutInflater.from(getActivity()).inflate(R.layout.sound_picker_dialog, null);
+        }
+
         mPalette = (SoundChooserPalette) view.findViewById(R.id.sound_picker);
         mPalette.init(mCircleColor, mSize, mColumns, this);
 
@@ -127,7 +138,7 @@ public class SoundChooserDialog extends DialogFragment implements OnSoundSelecte
             showPaletteView();
         }
 
-        mAlertDialog = new AlertDialog.Builder(activity)
+        mAlertDialog = new AlertDialog.Builder(context)
                 .setTitle(mTitle)
                 .setView(view)
                 .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -210,6 +221,10 @@ public class SoundChooserDialog extends DialogFragment implements OnSoundSelecte
             mSelectedSound = sound;
             refreshPalette();
         }
+    }
+
+    public void setTheme(int theme) {
+        this.mThemeId = theme;
     }
 
     @Override

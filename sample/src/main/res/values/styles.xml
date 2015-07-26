@@ -5,4 +5,10 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="DialogThemeSample" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:textColor">#F00</item>
+        <item name="android:textColorPrimary">#0F0</item>
+        <item name="android:textColorSecondary">#00F</item>
+    </style>
+
 </resources>
