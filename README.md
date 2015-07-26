@@ -7,7 +7,7 @@
 
 [Sample apk](raw/sample.apk)
 
-![Screen](raw/screen_3.png)
+![Screen](raw/screen.png)
 ![Demo](raw/demo.gif)
 
 ##Adding to Project
