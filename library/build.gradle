@@ -1,0 +1,140 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+version = "1.0.1"
+group = "ca.hoogit"
+
+android {
+    compileSdkVersion 21
+    buildToolsVersion "22.0.1"
+
+    defaultConfig {
+        minSdkVersion 17
+        targetSdkVersion 22
+        versionCode 1
+        versionName version
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    repositories {
+        maven {
+            url  "http://dl.bintray.com/jordond/maven"
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:22.2.0'
+    compile 'ca.hoogit:fabbutton:1.2.0'
+}
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'soundchooser'
+
+    publishedGroupId = 'ca.hoogit.soundchooser'
+    libraryName = 'SoundChooser'
+    artifact = 'sound-chooser'
+
+    libraryDescription = 'A material-ish sound chooser dialog'
+
+    siteUrl = 'https://github.com/jordond/SoundChooser'
+    gitUrl = 'https://github.com/jordond/SoundChooser.git'
+
+    libraryVersion = version
+
+    developerId = 'jordond'
+    developerName = 'Jordon de Hoog'
+    developerEmail = 'jordondehoog@gmail.com'
+
+    licenseName = 'GNU General Public License, version 2'
+    licenseUrl = 'http://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html'
+    allLicenses = ["GPL-2.0"]
+}
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
+
+
+//def siteUrl = 'https://github.com/jordond/soundchooser'
+//def gitUrl = 'https://github.com/jordond/soundchooser.git'
+//
+//Properties properties = new Properties()
+//properties.load(project.rootProject.file('local.properties').newDataInputStream())
+//
+//bintray {
+//    user = properties.getProperty("bintray.user")
+//    key = properties.getProperty("bintray.key")
+//
+//    configurations = ['archives']
+//    pkg {
+//        repo = "maven"
+//        name = "SoundChooser"
+//        websiteUrl = siteUrl
+//        vcsUrl = gitUrl
+//        licenses = ["GPL2"]
+//        publish = true
+//    }
+//}
+//
+//install {
+//    repositories.mavenInstaller {
+//        pom {
+//            project {
+//                packaging 'aar'
+//
+//                name 'A material-ish sound chooser dialog'
+//                url siteUrl
+//
+//                licenses {
+//                    license {
+//                        name 'GNU General Public License, version 2'
+//                        url 'http://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html'
+//                    }
+//                }
+//                developers {
+//                    developer {
+//                        id 'jordond'
+//                        name 'Jordon de Hoog'
+//                        email 'jordondehoog@gmail.com'
+//                    }
+//                }
+//                scm {
+//                    connection gitUrl
+//                    developerConnection gitUrl
+//                    url siteUrl
+//
+//                }
+//            }
+//        }
+//    }
+//}
+//
+//dependencies {
+//}
+//
+//task sourcesJar(type: Jar) {
+//    from android.sourceSets.main.java.srcDirs
+//    classifier = 'sources'
+//}
+//
+//task javadoc(type: Javadoc) {
+//    source = android.sourceSets.main.java.srcDirs
+//    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+//}
+//
+//task javadocJar(type: Jar, dependsOn: javadoc) {
+//    classifier = 'javadoc'
+//    from javadoc.destinationDir
+//    options.encoding = 'UTF-8'
+//}
+//artifacts {
+//    archives javadocJar
+//    archives sourcesJar
+//}

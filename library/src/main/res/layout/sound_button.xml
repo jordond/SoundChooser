@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mbanje.kurt.fabbutton.FabButton xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/button"
+    android:layout_width="48dp"
+    android:layout_height="48dp"
+    android:clickable="true"
+    android:color="#2196F3"
+    android:indeterminate="false"
+    android:max="100"
+    android:src="@drawable/ic_av_play_arrow"
+    android:visibility="visible"
+    app:fbb_autoStart="false"
+    app:fbb_endBitmap="@drawable/ic_swatch_selected"
+    app:fbb_hideProgressOnComplete="true"
+    app:fbb_progressWidthRatio="0.1"
+    app:fbb_showEndBitmap="true"
+    app:fbb_showShadow="true" />
